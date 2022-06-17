@@ -19,7 +19,6 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF{
 
     public void retrieveMessage(String message) throws RemoteException {
         // TODO Auto-generated method stub
-        System.out.println(message);
         this.scene2Controller.displayMessageRetrieved(message);
         
         

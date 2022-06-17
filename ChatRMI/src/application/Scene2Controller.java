@@ -1,9 +1,11 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 
@@ -22,6 +24,9 @@ public class Scene2Controller {
 	@FXML
 	TextField inputText;
 	
+	@FXML
+	ImageView icon = new ImageView();
+	
 	ChatClient chatClient;
 	ChatServerIF chatServer;
 	
@@ -31,18 +36,18 @@ public class Scene2Controller {
 	public void displayName(String username) {
 		this.username = username;
 		nameLabel.setText("Hello: " + username);
+		
+		textoChat.setWrapText(true);
+		textoChat.setEditable(false);
+	
 	}
 	
 	@FXML
 	public void displayMessage(ActionEvent e) throws RemoteException {
 
-		textoChat.setWrapText(true);
-		textoChat.setEditable(false);
 		String message = inputText.getText();
 		String username = this.username;
-				
-		System.out.println("displayMessage");
-		
+						
 		if(this.chatClient != null) {
 			
 			try {
@@ -51,6 +56,7 @@ public class Scene2Controller {
 				error.printStackTrace();
 			}
 		}
+		
 		
 	}
 	
@@ -69,6 +75,9 @@ public class Scene2Controller {
         String chatServerURL = "rmi://localhost/RMIChatServer";
         this.chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
         this.chatClient = new ChatClient(username, chatServer, this);
+        
+        
+        
         		
 	}
 	
